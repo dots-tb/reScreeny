@@ -11,7 +11,7 @@ Add to taihen config.txt as follows.
 		
 ## Credits:
 
-Structure cleanup by Princess of Sleeping
+Amazing Cleanup by Amazing Princess of Sleeping
 
 With help from folks at the
 

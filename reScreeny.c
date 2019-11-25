@@ -1,5 +1,5 @@
 // reScreeny by dots_tb - screenshots into game named folders
-// Structure cleanup by Princess of Sleeping
+// Amazing Cleanup by Amazing Princess of Sleeping
 //
 // With help from folks at the CBPS: https://discord.gg/2nDCbxJ
 // Idea by cuevavirus
