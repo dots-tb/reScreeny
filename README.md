@@ -5,8 +5,8 @@ Vita screenshots will be saved into a folder named after the game.
 ## Install:
 Add to taihen config.txt as follows.
 
-		*NPXS10036
-		ur0:tai/reScreeny.suprx
+	*NPXS10036
+	ur0:tai/reScreeny.suprx
 		
 		
 ## Credits:
