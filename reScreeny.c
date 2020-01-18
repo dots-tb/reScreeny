@@ -92,7 +92,10 @@ void sanitize(char *in, int len) {
 		int i = 0;
 		while(il_chars[i]!=0) {
 			if(*ptr==il_chars[i]) {
-				*ptr = ' ';
+				if(ptr==in + len - 1)
+					*ptr = 0;
+				else
+					*ptr = ' ';
 				break;
 			}
 			i++;
