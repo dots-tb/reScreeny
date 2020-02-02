@@ -88,16 +88,43 @@ void sanitize(char *in, int len) {
 	char il_chars[] = "<>:/\"\\|?*\n";
 	
 	char *ptr = in;
-	while(ptr < in + len) {
+	
+	// sanitize start
+	while (ptr < in + len) {
+		int i = 0, found = 0;
+		while (il_chars[i] != 0) {
+			if ((*ptr == il_chars[i]) || (*ptr == ' ')) {
+				char *ptr2 = ptr;
+				while (*ptr2 != 0) {
+					*ptr2 = *(ptr2 + 1);
+					ptr2++;
+				}
+				found = 1;
+				break;
+			}
+			i++;
+		}
+		if (!found) break;
+	}
+	
+	// sanitize rest
+	while (ptr < in + len) {
 		int i = 0;
-		while(il_chars[i]!=0) {
-			if(*ptr==il_chars[i]) {
+		while (il_chars[i] != 0) {
+			if (*ptr == il_chars[i]) {
 				*ptr = ' ';
 				break;
 			}
 			i++;
 		}
 		ptr++;
+	}
+	
+	// fixup end
+	while (ptr > in) {
+		if (*ptr != ' ' && *ptr != 0) break;
+		*ptr = 0;
+		ptr--;
 	}
 }
 
