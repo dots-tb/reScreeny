@@ -15,7 +15,7 @@ Amazing Cleanup by Amazing Princess of Sleeping
 
 With help from folks at the
 
-CBPS discord: https://discord.gg/2nDCbxJ
+CBPS discord: https://discord.cbps.xyz
 
 CBPS Forums: https://forum.devchroma.nl/index.php
 
