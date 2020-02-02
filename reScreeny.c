@@ -1,7 +1,7 @@
 // reScreeny by dots_tb - screenshots into game named folders
 // Amazing Cleanup by Amazing Princess of Sleeping
 //
-// With help from folks at the CBPS: https://discord.gg/2nDCbxJ
+// With help from folks at the CBPS: https://discord.cbps.xyz
 // Idea by cuevavirus
 //
 // Testing team:
