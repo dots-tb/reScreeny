@@ -16,7 +16,11 @@
 #include <stdlib.h>
 #include <sys/syslimits.h>
 
-#include <vitasdk.h>
+#include <psp2/kernel/threadmgr.h>
+#include <psp2/kernel/modulemgr.h>
+#include <psp2/kernel/iofilemgr.h>
+#include <psp2/paf.h>
+#include <psp2/rtc.h>
 
 #define printf sceClibPrintf
 #define HOOKS_NUM 1
@@ -136,29 +140,29 @@ int hook_func1(int r1, ImgParam2 *param2, ImgParam3 *param3) {
 		sceRtcGetCurrentClockLocalTime(&time);
 		
 		char fn[30];
-		sce_paf_private_snprintf(fn, 30, "%04d-%02d-%02d-%02d%02d%02d-%06d",  time.year, time.month, time.day, time.hour, time.minute, time.second, time.microsecond);
+		sce_paf_snprintf(fn, 30, "%04d-%02d-%02d-%02d%02d%02d-%06d",  time.year, time.month, time.day, time.hour, time.minute, time.second, time.microsecond);
 		
 		/*if(!param2->img_ext_len) {
 			param2->img_ext_len = param3->img_ext_len;
-			param2->img_ext = sce_paf_private_malloc(param2->img_ext_len + 1);
-			sce_paf_private_memset(param2->img_ext, 0, param2->img_ext_len  + 1);
-			sce_paf_private_memcpy(param2->img_ext, param3->img_ext, param2->img_ext_len);
+			param2->img_ext = sce_paf_malloc(param2->img_ext_len + 1);
+			sce_paf_memset(param2->img_ext, 0, param2->img_ext_len  + 1);
+			sce_paf_memcpy(param2->img_ext, param3->img_ext, param2->img_ext_len);
 		}*/
 
-		param2->outpath = sce_paf_private_malloc(PATH_MAX);		
+		param2->outpath = sce_paf_malloc(PATH_MAX);		
 	
 		char *titlename = (param2->title_len != 0) ? param2->titlename : "Other";
 		
 		sanitize(titlename, param2->title_len);
-		param2->path_len = sce_paf_private_snprintf(param2->outpath, PATH_MAX - sizeof(fn) - param2->img_ext_len, "photo0:/SCREENSHOT/%s", titlename);
+		param2->path_len = sce_paf_snprintf(param2->outpath, PATH_MAX - sizeof(fn) - param2->img_ext_len, "photo0:/SCREENSHOT/%s", titlename);
 		sceIoMkdir(param2->outpath, 6);
 		
 		
-		sce_paf_private_snprintf(param2->outpath + param2->path_len, PATH_MAX - param2->path_len - 1, "/%s%s", fn, param3->img_ext);
-		param2->path_len = sce_paf_private_strlen(param2->outpath);
+		sce_paf_snprintf(param2->outpath + param2->path_len, PATH_MAX - param2->path_len - 1, "/%s%s", fn, param3->img_ext);
+		param2->path_len = sce_paf_strlen(param2->outpath);
 		
-		sce_paf_private_memset(param2->titlename, 0, param2->title_len);
-		sce_paf_private_memcpy(param2->titlename, param3->titlename, param2->title_len);
+		sce_paf_memset(param2->titlename, 0, param2->title_len);
+		sce_paf_memcpy(param2->titlename, param3->titlename, param2->title_len);
 		
 		ret = 0;
 	} else
@@ -176,6 +180,7 @@ int module_start(SceSize argc, const void *args) {
 
 	switch(tai_info.module_nid){
 		case 0x1656745F: // 3.60 Devkit
+		case 0x3FE87731: // 3.60 Testkit
 			hook_uid[0] = taiHookFunctionOffset(&hook_ref[0], tai_info.modid, 0, 0x3e64, 1, hook_func1);
 			break;
 
